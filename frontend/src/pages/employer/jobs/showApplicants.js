@@ -13,8 +13,7 @@ class showApplicantsList extends React.Component {
 
   hireHandler = (id) =>{
     //alert("hi candidate : " + candidateId + " and job : " + job );
-    hireCandidate(id,this.state.job).then((response)=>{
-        console.log("here: " + response.username );        
+    hireCandidate(id,this.state.job).then((response)=>{     
         this.componentDidMount();
     });
     //history.push

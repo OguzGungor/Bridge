@@ -48,7 +48,6 @@ class AppliedJobs extends React.Component {
     getAppliedJobs()
       .then((jobs) => {
         let data = [];
-        console.log(jobs);
         jobs.map((job,index)=>{
           //console.log(job + " : " + index);
          data.push({

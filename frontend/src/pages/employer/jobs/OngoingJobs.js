@@ -1,11 +1,13 @@
 import React from "react";
 import { useHistory, withRouter } from "react-router-dom";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { UserOutlined, LockOutlined, UsergroupAddOutlined, FileSearchOutlined, UploadOutlined, DownloadOutlined, EditOutlined, DeleteOutlined, CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { Input, Button, Row, Col, Form, Table } from "antd";
 import Title from "antd/lib/skeleton/Title";
 import { addFavBook, addReadBook, applyJob } from "../../../util/employee/Jobs";
 import { getBooks, getJobs } from "../../../util/common/common";
 import { closeJob, getOfferedJobs, openJob, removeJob, showApplicants, showOngoingJobs } from "../../../util/admin/Jobs";
+import DesktopBreakpoint from "../../../responsive_util/desktop";
+import PhoneBreakpoint from "../../../responsive_util/phone";
 
 class OngoingJobs extends React.Component {
   
@@ -13,7 +15,6 @@ class OngoingJobs extends React.Component {
   closeHandler = (id) => {
     const { history ,match} = this.props; 
     closeJob(id).then((result)=>{
-        console.log(result);
         this.componentDidMount();
     })
   }
@@ -21,7 +22,6 @@ class OngoingJobs extends React.Component {
   showEmployeesHandler = (id) => {
      
     const { history ,match} = this.props; 
-    console.log(match);
       history.push(`/employer/showEmployees?id=${id}`)
       /*
       showApplicants(id).then((result)=>{
@@ -57,7 +57,6 @@ class OngoingJobs extends React.Component {
     
     const { history ,match} = this.props;  
     removeJob(id).then((result)=>{
-      console.log("removed!");
       this.componentDidMount();
     });
 
@@ -99,26 +98,64 @@ class OngoingJobs extends React.Component {
       render: (id) => (
         <div>    
             
-          <Button style={{width:"20%"}} type="primary" id={id} onClick={this.showEmployeesHandler.bind(this, id)}>
+          <Button style={{width:"20%",overflowX:"hidden"}} type="primary" id={id} onClick={this.showEmployeesHandler.bind(this, id)}>
             Employees
           </Button>      
-          <Button style={{width:"20%"}} id={id} onClick={this.addReadHandler.bind(this, id)}>
+          <Button style={{width:"20%",overflowX:"hidden"}} id={id} onClick={this.addReadHandler.bind(this, id)}>
             Details
           </Button>
           <br/>          
-          <Button style={{width:"20%"}} id={id} onClick={this.openHandler.bind(this, id)}>
+          <Button style={{width:"20%",overflowX:"hidden"}} id={id} onClick={this.openHandler.bind(this, id)}>
             Open
           </Button>
-          <Button style={{width:"20%"}} type="primary" id={id} onClick={this.closeHandler.bind(this, id)}>
+          <Button style={{width:"20%",overflowX:"hidden"}} type="primary" id={id} onClick={this.closeHandler.bind(this, id)}>
             Close
           </Button>  
           <br/>                  
-          <Button style={{width:"20%"}} type="primary" id={id} onClick={this.updateHandler.bind(this, id)}>
+          <Button style={{width:"20%",overflowX:"hidden"}} type="primary" id={id} onClick={this.updateHandler.bind(this, id)}>
             Update
           </Button>                                   
-          <Button style={{width:"20%"}} id={id} onClick={this.removeHandler.bind(this, id)}>
+          <Button style={{width:"20%",overflowX:"hidden"}} id={id} onClick={this.removeHandler.bind(this, id)}>
             Remove
           </Button> 
+          
+        </div>
+      ),
+    },
+  ];
+
+  columns2 = [
+    {
+      title: "title",
+      dataIndex: "title",     
+    },
+    {
+      title: "status",
+      dataIndex: "status",
+      render : (status) =>(status=="open")?(<CheckOutlined />):(<CloseOutlined />)
+    },
+    {
+      title: "quota",
+      dataIndex : "quota"
+    },
+    {
+      title: "",
+      dataIndex: "action",
+      render: (id) => (
+        <div>    
+            
+          <UsergroupAddOutlined  id={id} onClick={this.showEmployeesHandler.bind(this, id)}/>
+          &nbsp;&nbsp;&nbsp;
+          <FileSearchOutlined id={id} onClick={this.addReadHandler.bind(this, id)}/>
+          <br/>
+          <UploadOutlined id={id} onClick={this.openHandler.bind(this, id)}/>
+          &nbsp;&nbsp;&nbsp;
+          <DownloadOutlined id={id} onClick={this.closeHandler.bind(this, id)}/>
+          <br/>   
+          <EditOutlined id={id} onClick={this.updateHandler.bind(this, id)}/>    
+          &nbsp;&nbsp;&nbsp; 
+          <DeleteOutlined id={id} onClick={this.removeHandler.bind(this, id)}/>
+          
           
         </div>
       ),
@@ -129,7 +166,6 @@ class OngoingJobs extends React.Component {
     showOngoingJobs()
       .then((jobs) => {
         let data = [];
-        console.log(jobs);
         jobs.map((job,index)=>{
           //console.log(job + " : " + index);
          data.push({
@@ -174,22 +210,25 @@ class OngoingJobs extends React.Component {
             `An error occured : ${error}`
           ) : (
             <>
-              <Input
-                id="searchBox"
-                type="text"
-                placeholder = "Search"
-                onChange={this.search.bind(this)}
-              />
               <Row glutter={[40, 0]}>
                 <Col span={24}>
                   <Title level={2}>UserList</Title>
                 </Col>
               </Row>
-              <Row glutter={[40, 0]}>
+              <DesktopBreakpoint>
+                <Row glutter={[40, 0]}>
                 <Col span={24}>
                   <Table columns={this.columns} dataSource={books}  />
                 </Col>
               </Row>
+              </DesktopBreakpoint>
+              <PhoneBreakpoint>
+                  <Row glutter={[40, 0]}>
+                  <Col span={24}>
+                    <Table columns={this.columns2} dataSource={books} />
+                  </Col>
+                </Row>
+              </PhoneBreakpoint>
               
               <Button onClick={this.addJobHandler.bind(this)}>Add New Job</Button>
             </>

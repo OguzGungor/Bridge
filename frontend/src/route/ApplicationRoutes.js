@@ -17,6 +17,8 @@ import EmployeeMain from "../pages/employee/EmployeeMain";
 import EmployeeSideNavigation from "../layout/EmployeeSideNavigation";
 import EmployerMain from "../pages/employer/EmployerMain";
 import EmployerSideNavigation from "../layout/EmployerSideNavigation";
+import DesktopBreakpoint from "../responsive_util/desktop";
+import PhoneBreakpoint from "../responsive_util/phone";
 
 const { Header, Sider, Content } = Layout;
 
@@ -30,16 +32,32 @@ const ApplicationRoutes = () => {
   return (
     <Router>
       <Layout>
-        <Sider trigger={null} collabsible collapsed={collapse}>          
-          <Switch>
-            <Route exact path="/admin/:id" component={AdminSideNavigation} />
-            <Route exact path="/admin" component={AdminSideNavigation} />            
-            <Route exact path="/employee/:id" component={EmployeeSideNavigation} />
-            <Route exact path="/employee" component={EmployeeSideNavigation} />                    
-            <Route exact path="/employer/:id" component={EmployerSideNavigation} />
-            <Route exact path="/employer" component={EmployerSideNavigation} />           
-          </Switch>
-        </Sider>
+        <DesktopBreakpoint>
+          <Sider trigger={null} collabsible collapsed={collapse}>          
+            <Switch>
+              <Route exact path="/admin/:id" component={AdminSideNavigation} />
+              <Route exact path="/admin" component={AdminSideNavigation} />            
+              <Route exact path="/employee/:id" component={EmployeeSideNavigation} />
+              <Route exact path="/employee" component={EmployeeSideNavigation} />                    
+              <Route exact path="/employer/:id" component={EmployerSideNavigation} />
+              <Route exact path="/employer" component={EmployerSideNavigation} />           
+            </Switch>
+          </Sider>
+        </DesktopBreakpoint>
+        
+        <PhoneBreakpoint>
+        <Header >          
+            <Switch>
+              <Route exact path="/admin/:id" component={AdminSideNavigation} />
+              <Route exact path="/admin" component={AdminSideNavigation} />            
+              <Route exact path="/employee/:id" component={EmployeeSideNavigation} />
+              <Route exact path="/employee" component={EmployeeSideNavigation} />                    
+              <Route exact path="/employer/:id" component={EmployerSideNavigation} />
+              <Route exact path="/employer" component={EmployerSideNavigation} />           
+            </Switch>
+          </Header>
+        </PhoneBreakpoint>
+        
         <Layout>
           <Header
             className="siteLayoutBackground"

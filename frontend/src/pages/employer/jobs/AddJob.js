@@ -34,7 +34,6 @@ const AddJob = () => {
     if (id) {
       values["id"] = id;
     }
-    console.log(values);
     addJob(values).then((result) => {
         history.push("/employer/offeredJobs");
     });

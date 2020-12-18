@@ -8,6 +8,8 @@ import {
   StarFilled,
 } from "@ant-design/icons";
 import { roleRequest } from "../util/LoginManager";
+import DesktopBreakpoint from "../responsive_util/desktop";
+import PhoneBreakpoint from "../responsive_util/phone";
 const { Menu } = require("antd");
 
 const EmployerSideNavigation = () => {
@@ -59,7 +61,8 @@ const EmployerSideNavigation = () => {
             margin: "16px",
           }}
         ></div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={[`${select}`]}>
+        <DesktopBreakpoint>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={[`${select}`]}>
           <Menu.Item key="home" onClick={handleHomeClick}>
             <HomeFilled />
             <span>Home</span>
@@ -77,6 +80,27 @@ const EmployerSideNavigation = () => {
             <span>Logout</span>
           </Menu.Item>
         </Menu>
+        </DesktopBreakpoint>
+        <PhoneBreakpoint>
+        <Menu theme="dark" mode="horizontal" style={{maxWidth:"200px"}} defaultSelectedKeys={[`${select}`]}>
+          <Menu.Item key="home" onClick={handleHomeClick}>
+            <HomeFilled />
+          </Menu.Item>
+          
+          <Menu.Item key="logout" onClick={handleLogoutClick}>
+            <LogoutOutlined />
+          </Menu.Item>
+          <Menu.Item key="books" onClick={handleJobsClick}>
+            <BookFilled />
+            <span>OfferedJobs</span>
+          </Menu.Item>
+          <Menu.Item key="favourites" onClick={handleHiredJobsClick}>
+            <StarFilled />
+            <span>OngoingJobs</span>
+          </Menu.Item>
+        </Menu>
+        </PhoneBreakpoint>
+        
       </div>
     );
   } else {

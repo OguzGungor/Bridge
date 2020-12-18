@@ -36,7 +36,6 @@ if(name){
 
             return axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
                 
                 return response.data;
             })
@@ -61,7 +60,6 @@ export const closeJob = (id) => {
 
     return axios(config)
     .then(function (response) {
-    console.log(JSON.stringify(response.data));
     return response.data;
     })
     .catch(function (error) {
@@ -85,7 +83,6 @@ export const openJob = (id) => {
 
   return axios(config)
   .then(function (response) {
-  console.log(JSON.stringify(response.data));
   return response.data;
   })
   .catch(function (error) {
@@ -110,7 +107,6 @@ export const getJobInfo = (id) => {
 
   return axios(config)
   .then(function (response) {
-    console.log(JSON.stringify(response.data));
     return response.data;
   })
   .catch(function (error) {
@@ -143,7 +139,6 @@ export const addJob = (values) => {
     return axios(config)
     .then(function (response) { 
         
-        console.log(JSON.stringify(response.data));
         return response.data;
     })
     .catch(function (error) {
@@ -167,7 +162,6 @@ var config = {
 
 return axios(config)
 .then(function (response) {
-  console.log(JSON.stringify(response.data));
   return response.data;
 })
 .catch(function (error) {
@@ -187,7 +181,6 @@ export const showOngoingJobs = () => {
   
   return axios(config)
   .then(function (response) {
-    console.log(JSON.stringify(response.data));
     return response.data;
   })
   .catch(function (error) {
@@ -213,7 +206,6 @@ export const showEmployees = (id) =>{
 
   return axios(config)
   .then(function (response) {
-    console.log(JSON.stringify(response.data));
     return response.data;
   })
   .catch(function (error) {
@@ -237,7 +229,6 @@ var config = {
 
 return axios(config)
 .then(function (response) {
-  console.log(JSON.stringify(response.data));
   return response.data;
 })
 .catch(function (error) {

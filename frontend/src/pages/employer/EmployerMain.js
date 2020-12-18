@@ -24,8 +24,7 @@ class EmployerMain extends React.Component {
   componentDidMount() {
     roleRequest()
       .then((role) => {
-        console.log(role);
-        this.setState({ role });
+        this.setState({ role:role });
       })
       .catch((error) => this.setState({ error }));
   }
@@ -36,7 +35,6 @@ class EmployerMain extends React.Component {
         <Switch>
           <Route path="/employer/home">
             <h1>Home</h1>
-            <body></body>
           </Route>                 
                    
           <Route path="/employer/addJob" component={AddJob} />

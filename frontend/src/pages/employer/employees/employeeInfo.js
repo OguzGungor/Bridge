@@ -17,8 +17,6 @@ const EmployeeInfo = () => {
       var items1 = window.location.search.substr(1).split("&");
     var items2 = items1[0].split("=");
     var items3 = items1[1].split("=");
-    //alert("here : " + items2[1] + " : " + items3[1] );
-    console.log("there : " + items2[1]);
     getCandidate(items2[1]).then((applicant)=>{
         setName(applicant.username);
         setJob(items3[1]);
@@ -31,7 +29,6 @@ const EmployeeInfo = () => {
 
   const hireHandler = () =>{
       unhireEmployee(candidateId,job).then((response)=>{
-        console.log("here: " + response.username );
         history.push(`/employer/showEmployees?id=${job}`);
     });
   }

@@ -12,9 +12,7 @@ class showEmployeesList extends React.Component {
   
 
   hireHandler = (id) =>{
-    alert("hi employee : " + id + " and job : " + this.state.job );
     unhireEmployee(id,this.state.job).then((response)=>{
-        console.log("here: " + response.username );
         this.componentDidMount();
     });
     //history.push
@@ -23,7 +21,6 @@ class showEmployeesList extends React.Component {
 
 
  examineHandler = (id) => {
-    //alert(id + " : " + this.state.job);
     
     const { history ,match} = this.props; 
     history.push(`/employer/employeeInfo?candidateid=${id}&jobid=${this.state.job}`);

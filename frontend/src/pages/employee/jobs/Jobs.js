@@ -5,6 +5,8 @@ import { Input, Button, Row, Col, Form, Table } from "antd";
 import Title from "antd/lib/skeleton/Title";
 import { addFavBook, addReadBook, applyJob } from "../../../util/employee/Jobs";
 import { getBooks, getJobs } from "../../../util/common/common";
+import DesktopBreakpoint from "../../../responsive_util/desktop";
+import PhoneBreakpoint from "../../../responsive_util/phone";
 
 class Jobs extends React.Component {
   
@@ -12,11 +14,9 @@ class Jobs extends React.Component {
   applyJobHandler = (id) => {
     const { history ,match} = this.props; 
     applyJob(id).then((result)=>{
-      console.log(result);
       getJobs()
       .then((jobs) => {
         let data = [];
-        console.log(jobs);
         jobs.map((job,index)=>{
           //console.log(job + " : " + index);
          data.push({
@@ -82,11 +82,35 @@ class Jobs extends React.Component {
     },
   ];
 
+  columns2 = [    
+    {
+      title: "title",
+      dataIndex: "title",     
+    },
+    {
+      title: "description",
+      dataIndex: "description",
+    },
+    {
+      title: "",
+      dataIndex: "action",
+      render: (id) => (
+        <div>          
+          <Button id={id} onClick={this.addReadHandler.bind(this, id)}>
+            Details
+          </Button>
+          <Button type="primary" id={id} onClick={this.applyJobHandler.bind(this, id)}>
+            Apply
+          </Button>
+        </div>
+      ),
+    },
+  ];
+
   componentDidMount() {
     getJobs()
       .then((jobs) => {
         let data = [];
-        console.log(jobs);
         jobs.map((job,index)=>{
           //console.log(job + " : " + index);
          data.push({
@@ -171,11 +195,21 @@ class Jobs extends React.Component {
                   <Title level={2}>UserList</Title>
                 </Col>
               </Row>
+              <DesktopBreakpoint>
               <Row glutter={[40, 0]}>
                 <Col span={24}>
                   <Table columns={this.columns} dataSource={books} />
                 </Col>
+              </Row>              
+              </DesktopBreakpoint>
+              <PhoneBreakpoint>
+              <Row glutter={[40, 0]}>
+                <Col span={24}>
+                  <Table columns={this.columns2} dataSource={books} />
+                </Col>
               </Row>
+              </PhoneBreakpoint>
+              
             </>
           )
         ) : (
